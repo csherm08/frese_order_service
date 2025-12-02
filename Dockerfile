@@ -5,6 +5,7 @@ COPY config.xml config.xml
 RUN rm -rf /app/www/
 RUN npm install -g cordova ionic
 RUN npm install
+ENV NODE_OPTIONS=--openssl-legacy-provider
 RUN npm run build-prod
 
 FROM nginx:alpine
