@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 COPY config.xml config.xml
 RUN rm -rf /app/www/
-RUN npm install -g cordova ionic && cordova telemetry off
+RUN npm install -g cordova ionic
 RUN npm install
 RUN npm run build-prod
 
