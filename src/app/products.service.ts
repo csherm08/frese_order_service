@@ -33,7 +33,8 @@ export class ProductsService {
   }
   getProducts() {
     const special = this.types.find(t => t.name === 'Special');
-    return this.products.filter(p => p.typeId !== special.id);
+    // Filter out "Special" type and "Superbowl Special" type (typeId 10)
+    return this.products.filter(p => p.typeId !== special.id && p.typeId !== 10);
   }
 
   findMatchingProduct(p) {
