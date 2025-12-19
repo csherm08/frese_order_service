@@ -33,8 +33,14 @@ export class ProductsService {
   }
   getProducts() {
     const special = this.types.find(t => t.name === 'Special');
-    // Filter out "Special" type and "Superbowl Special" type (typeId 10)
-    return this.products.filter(p => p.typeId !== special.id && p.typeId !== 10);
+    const catering = this.types.find(t => t.name === 'Catering');
+    // Filter out "Special" type, "Superbowl Special" type (typeId 10), and "Catering" type
+    return this.products.filter(p => {
+      if (special && p.typeId === special.id) return false;
+      if (p.typeId === 10) return false; // Superbowl Special
+      if (catering && p.typeId === catering.id) return false;
+      return true;
+    });
   }
 
   findMatchingProduct(p) {
