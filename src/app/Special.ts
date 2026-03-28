@@ -44,6 +44,35 @@ export default class Special {
       if (item.product_sizes && item.product_sizes.length > 0) {
         item.product_size_selected = item.product_sizes[0];
       }
+      // Transform product_selection_values from array to object with selected property
+      if (item.product_selection_values) {
+        Object.keys(item.product_selection_values).forEach(selectionKey => {
+          const selectionData = item.product_selection_values[selectionKey];
+          if (selectionData) {
+            Object.keys(selectionData).forEach(sizeKey => {
+              const sizeData = selectionData[sizeKey];
+              // If it's an array, transform it to an object with the array and selected property
+              if (Array.isArray(sizeData)) {
+                selectionData[sizeKey] = {
+                  options: sizeData,
+                  selected: null
+                };
+              } else if (sizeData && !sizeData.hasOwnProperty('selected')) {
+                // If it's already an object but doesn't have selected, add it
+                if (sizeData.options) {
+                  sizeData.selected = sizeData.selected || null;
+                } else {
+                  // Convert single object to structure with options array
+                  selectionData[sizeKey] = {
+                    options: [sizeData],
+                    selected: null
+                  };
+                }
+              }
+            });
+          }
+        });
+      }
     });
     return menu;
   }

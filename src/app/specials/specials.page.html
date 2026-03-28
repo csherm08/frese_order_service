@@ -33,11 +33,11 @@
                           *ngIf="hasSelections(item)"
                           [(ngModel)]="item.product_selection_values[selectionKey][getSizeKey(item)].selected"
                                       [placeholder]="selectionKey">
-                            <ion-select-option *ngFor="let v of item.product_selection_values[selectionKey][getSizeKey(item)]"
+                            <ion-select-option *ngFor="let v of getSelectionOptionsArray(item, selectionKey)"
                                                [value]="v">
                               {{v.value}}
                               <br>
-                              <p *ngIf="v.cost">${{v.cost}}</p>
+                              <p *ngIf="v.cost">${{displayAmount(v.cost)}}</p>
                             </ion-select-option>
                           </ion-select>
                         </div>

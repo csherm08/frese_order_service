@@ -190,10 +190,12 @@ export class OrderService {
   }
 
   getItemCost(item) {
-    if (item.product_size_selected) {
+    if (item.product_size_selected && item.product_size_selected.cost != null) {
       return item.product_size_selected.cost;
-    } else {
+    } else if (item.price != null) {
       return item.price;
+    } else {
+      return 0;
     }
   }
 

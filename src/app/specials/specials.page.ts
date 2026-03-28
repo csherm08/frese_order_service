@@ -115,6 +115,9 @@ export class SpecialsPage implements OnInit {
 
 
   displayAmount(amount) {
+    if (amount == null || amount === undefined) {
+      return '0.00';
+    }
     return amount.toFixed(2);
   }
 
@@ -321,7 +324,28 @@ export class SpecialsPage implements OnInit {
     return Object.keys(product.product_selection_values);
     } catch(e) {
       console.log("SELECTIONS ", e);
+      return [];
     }
+  }
+
+  getSelectionOptions(item: any, selectionKey: string): any[] {
+    if (!item || !item.product_selection_values || !item.product_selection_values[selectionKey]) {
+      return [];
+    }
+    const sizeKey = this.getSizeKey(item);
+    const selectionData = item.product_selection_values[selectionKey][sizeKey];
+    // Handle both old array format (for backwards compatibility) and new object format
+    if (Array.isArray(selectionData)) {
+      return selectionData;
+    }
+    if (selectionData && selectionData.options && Array.isArray(selectionData.options)) {
+      return selectionData.options;
+    }
+    return [];
+  }
+
+  getSelectionOptionsArray(item: any, selectionKey: string): any[] {
+    return this.getSelectionOptions(item, selectionKey);
   }
 
   hasSelections(product) {

@@ -75,6 +75,9 @@ export class CartPage implements OnInit {
   }
 
   displayAmount(amount) {
+    if (amount == null || amount === undefined) {
+      return '0.00';
+    }
     return amount.toFixed(2);
   }
 

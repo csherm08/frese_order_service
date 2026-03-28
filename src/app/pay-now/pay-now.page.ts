@@ -136,6 +136,9 @@ export class PayNowPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   displayAmount(amount) {
+    if (amount == null || amount === undefined) {
+      return '0.00';
+    }
     return amount.toFixed(2);
   }
 

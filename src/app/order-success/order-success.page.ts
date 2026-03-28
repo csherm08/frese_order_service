@@ -58,6 +58,9 @@ export class OrderSuccessPage implements OnInit {
     return this.order?.total - this.getSubTotal();
   }
   displayAmount(amount) {
+    if (amount == null || amount === undefined) {
+      return '0.00';
+    }
     return amount.toFixed(2);
   }
 
