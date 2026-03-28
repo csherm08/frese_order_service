@@ -34,11 +34,13 @@ export class ProductsService {
   getProducts() {
     const special = this.types.find(t => t.name === 'Special');
     const catering = this.types.find(t => t.name === 'Catering');
-    // Filter out "Special" type, "Superbowl Special" type (typeId 10), and "Catering" type
+    const plugPower = this.types.find(t => t.name === 'Plug Power');
+    // Filter out Special, Superbowl (typeId 10), Catering, Plug Power (second-location catalog)
     return this.products.filter(p => {
       if (special && p.typeId === special.id) return false;
       if (p.typeId === 10) return false; // Superbowl Special
       if (catering && p.typeId === catering.id) return false;
+      if (plugPower && p.typeId === plugPower.id) return false;
       return true;
     });
   }

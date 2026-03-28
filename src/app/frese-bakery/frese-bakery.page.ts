@@ -324,7 +324,7 @@ export class FreseBakeryPage implements OnInit {
     this.productsService.productsUpdated.subscribe((vals) => {
     });
     this.dataService.getProductTypes().subscribe(types => {
-      this.productTypes = types;
+      this.productTypes = types.filter(t => t.name !== 'Plug Power');
     });
     const timeout = 200;
     let i = 0;
