@@ -40,7 +40,7 @@ export class OrderServiceService {
     return this.http.get(`${this.apiUrl}/activeSpecial`);
   }
   getActiveSpecials() {
-    return this.http.get(`${this.apiUrl}/activeSpecials`);
+    return this.http.get(`${this.apiUrl}/activeSpecials?site=main`);
   }
   getSpecialById(id) {
     return this.http.get(`${this.apiUrl}/specials/${id}`);
