@@ -55,7 +55,7 @@ export class OrderServiceService {
     return this.http.patch(`${this.apiUrl}/orders/${orderId}/updateOrderDetails`, body);
   }
   getAvailableTimeSlots() {
-    return this.http.get(`${this.apiUrl}/orders/availableTimes/6`);
+    return this.http.get(`${this.apiUrl}/orders/availableTimes/6?site=main`);
   }
   getAvailableSpecialSlots(id) {
     return this.http.get(`${this.apiUrl}/orders/availableSpecialTimes/${id}`);
