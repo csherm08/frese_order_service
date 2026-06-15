@@ -324,7 +324,11 @@ export class FreseBakeryPage implements OnInit {
     this.productsService.productsUpdated.subscribe((vals) => {
     });
     this.dataService.getProductTypes().subscribe(types => {
-      this.productTypes = types.filter(t => t.name !== 'Plug Power');
+      // Hide Plug Power and every catering type (generic "Catering" + the
+      // per-menu catering types) from the menu category list.
+      this.productTypes = types.filter(t =>
+        t.name !== 'Plug Power' && !(t.name && t.name.toLowerCase().includes('catering'))
+      );
     });
     const timeout = 200;
     let i = 0;
