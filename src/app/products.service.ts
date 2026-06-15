@@ -33,13 +33,17 @@ export class ProductsService {
   }
   getProducts() {
     const special = this.types.find(t => t.name === 'Special');
-    const catering = this.types.find(t => t.name === 'Catering');
     const plugPower = this.types.find(t => t.name === 'Plug Power');
-    // Filter out Special, Superbowl (typeId 10), Catering, Plug Power (second-location catalog)
+    // Every catering type: generic "Catering" + the per-menu catering types
+    // (Full Service / Barbecue / A La Carte Catering). Kept out of the menu.
+    const cateringIds = this.types
+      .filter(t => t.name && t.name.toLowerCase().includes('catering'))
+      .map(t => t.id);
+    // Filter out Special, Superbowl (typeId 10), all Catering types, Plug Power (second-location catalog)
     return this.products.filter(p => {
       if (special && p.typeId === special.id) return false;
       if (p.typeId === 10) return false; // Superbowl Special
-      if (catering && p.typeId === catering.id) return false;
+      if (cateringIds.includes(p.typeId)) return false;
       if (plugPower && p.typeId === plugPower.id) return false;
       return true;
     });
